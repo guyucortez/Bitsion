@@ -1,0 +1,35 @@
+﻿<h1>Cuentas</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Crear cuenta</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:30%">Nombre y apellido</th>
+            <th style="width:30%">Email</th>
+            <th style="width:30%">Rol</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let account of accounts">
+            <td>{{account.title}} {{account.firstName}} {{account.lastName}}</td>
+            <td>{{account.userName}}</td>
+            <td>{{account.role}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteAccount(account.id)" class="btn btn-sm btn-danger btn-delete-account" [disabled]="account.isDeleting">
+                    <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!account.isDeleting">Delete</span>
+                </button>
+                <button *ngIf="account.isVerified" (click)="verifyAccount(account.id)" class="btn btn-sm btn-secondary btn-verify-account" [disabled]="account.isVerify">
+                    <span *ngIf="account.isVerify" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!account.isVerify">Verify</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!accounts">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
